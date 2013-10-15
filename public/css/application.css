@@ -4,6 +4,39 @@
   padding: 0px 20px 20px 20px;
   border: 1px dotted black;
 }
+
 th {
   text-align: left;
+}
+
+
+.racer_table tr {
+  background-color: black;
+  height: 20px;
+  width: 20px;
+  border-bottom: 4px;
+}
+
+#player2_strip .active {
+  background-image: url('../coyote-pouncing.jpg');
+  background-size: 85px;
+  font-weight: 30px;
+}
+
+.racer_table td {
+  background-color: green;
+  border: 2px solid black;
+  height: 100px;
+  width: 80px;
+}
+
+
+#player2_strip{
+  border-bottom: 4px solid black;
+}
+
+#player1_strip .active {
+  background-image: url('../coyote-howling.jpg');
+  background-size: 140px;
+  font-weight: 30px;
 }
