@@ -24,7 +24,8 @@ th {
 }
 
 .racer_table td {
-  background-color: green;
+  background-image: url('../skygrass.jpg');
+  background-size: 170px;
   border: 2px solid black;
   height: 100px;
   width: 80px;

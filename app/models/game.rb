@@ -1,3 +1,4 @@
 class Game < ActiveRecord::Base
-  has_many :players
+  has_many :appearances
+  has_many :players, through: :appearances
 end

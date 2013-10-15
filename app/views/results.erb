@@ -1,8 +1,13 @@
 <div class="container">
     <h1>WELL DONE</h1>
+      
+      <h2>Winner: <%= @winner.name %></h2>
+        <h3> Game Time: <%= @game.elapsed_time%></h3>
 
-      <h2>Previous Results</h2>
 
-        <% Player %>
-
+    
+      <p>Play again?</p>
+      <a href='/race'>Yes</a>
+    <a href='/logout'>No</a>
+</div>
 

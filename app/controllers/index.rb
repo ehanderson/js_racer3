@@ -1,5 +1,7 @@
 #################FIX SAVE THE WIN #############################
+get '/reset_game_number' do
 
+end
 
 get '/' do
 
@@ -13,31 +15,37 @@ end
 
 
 post '/' do
-  new_game = Game.create() 
-  player1 = Player.create(name: params[:player1], game_id: new_game.id)
-  player2 = Player.create(name: params[:player2], game_id: new_game.id)
-  session[:player1] = player1.id
-  session[:player2] = player2.id
+  @player1 = Player.where(name: params[:player1]).first_or_create
+  @player2 = Player.where(name: params[:player2]).first_or_create
+  @game = Game.create
+  @appearance1 = Appearance.create(player_id: @player1.id, game_id: @game.id)
+  @appearance2 = Appearance.create(player_id: @player2.id, game_id: @game.id)
+  session[:player1] = @player1.name
+  session[:player2] = @player2.name
 
   redirect('/race')
 end
 
 get '/race' do
-
   erb :race
 end
 
 post '/results' do
-  @winner_id = params[:player_id]
-  p @winner_id.to_i == session[:player1]
-  p @winner_id.to_i == session[:player2]
-  p @winner_id = @winner_id.to_i
-  p session[:player1]
-  p session[:player2]
-  Player.find(session[:player1]).update(win: @winner_id == session[:player1])
-  Player.find(session[:player2]).update(win: @winner_id == session[:player2])
+  @player1 = Player.find_by_name(session[:player1])
+  @player1.appearances.last.update_attributes(win: (params[:winner] == session[:player1]))
+  @player2 = Player.find_by_name(session[:player2]).appearances.last.update_attributes(win: (params[:winner] == session[:player2]))
+  @game = Game.find(@player1.appearances.last.game_id)
+  @game.update_attributes(elapsed_time: params[:time].to_i)
+  @winner = Player.find(Appearance.where(win: true).last.player_id)
 
-  redirect('/results')
+  if request.xhr?
+    erb :results
+  end
 end 
+
+get '/logout' do
+  session.clear
+  redirect '/'
+end
 
 

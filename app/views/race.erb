@@ -1,5 +1,6 @@
 <!-- <button onclick="TogetherJS(this); return false;">Start TogetherJS</button> -->
-
+<div id="page">
+<h1><span id="player1"><%= session[:player1] %></span>vs.<span id="player2"><%= session[:player2] %></span></h1>
 <table class="racer_table">
   <tr id="player1_strip">
     <td class="active"></td>
@@ -33,3 +34,4 @@
     <td id="<%=session[:player2]%>"></td>
   </tr>
 </table>
+</div>
