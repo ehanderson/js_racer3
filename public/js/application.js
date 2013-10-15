@@ -3,28 +3,32 @@ function Game(player1, player2) {
   this.player2 = player2;
   this.boardLength = $('#player1_strip td').size();
   this.startTime = new Date();
+  this.gameover = false
 }
 
 Game.prototype.onKeyUp = function (event) {
-  if (this.winner() == false)
-  {
-      if (event == 80)  //p
+  if (this.gameover == false) {
+    if (this.winner() == false)
     {
-      this.player1.updatePosition();
+        if (event == 80)  //p
+      {
+        this.player1.updatePosition();
+      }
+      else if (event == 81) //q
+      {
+        this.player2.updatePosition();
+      }
+      this.render();
     }
-    else if (event == 81) //q
+    else
     {
-      this.player2.updatePosition();
+      this.endTime = new Date();
+      totalTime = this.endTime - this.startTime;
+      $.post("/results", {winner: this.winner(), time: totalTime}, function(response) {
+        $('#page').html(response);
+      })
+    this.gameover = true
     }
-    this.render();
-  }
-  else
-  {
-    this.endTime = new Date();
-    totalTime = this.endTime - this.startTime;
-    $.post("/results", {winner: this.winner(), time: totalTime}, function(response) {
-      $('#page').html(response);
-    })
   }
 };
 
@@ -69,7 +73,7 @@ $(document).ready(function() {
   var game = new Game(player1, player2);
 
   $(document).on('keyup', function(event) {
-      game.onKeyUp(event.which);
+    game.onKeyUp(event.which);
   });
 });
 

@@ -1,8 +1,3 @@
-#################FIX SAVE THE WIN #############################
-get '/reset_game_number' do
-
-end
-
 get '/' do
 
   erb :index
@@ -26,7 +21,9 @@ post '/' do
   redirect('/race')
 end
 
+
 get '/race' do
+
   erb :race
 end
 
@@ -39,6 +36,7 @@ post '/results' do
   @winner = Player.find(Appearance.where(win: true).last.player_id)
 
   if request.xhr?
+    
     erb :results
   end
 end 

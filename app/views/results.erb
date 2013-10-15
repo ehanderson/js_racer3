@@ -1,8 +1,8 @@
 <div class="container">
     <h1>WELL DONE</h1>
       
-      <h2>Winner: <%= @winner.name %></h2>
-        <h3> Game Time: <%= @game.elapsed_time%></h3>
+      <h2>Winner: <%= @winner.name.upcase %></h2>
+        <h3> Game Time: <%= @game.elapsed_time.to_f/1000%> seconds</h3>
 
 
     
